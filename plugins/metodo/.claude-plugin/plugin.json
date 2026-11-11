@@ -1,0 +1,6 @@
+{
+  "name": "metodo",
+  "version": "1.0.0",
+  "description": "Método Spec → Plan → Build com subagentes e trilha de frontend.",
+  "author": { "name": "Marco Junior" }
+}
