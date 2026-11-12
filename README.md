@@ -6,7 +6,8 @@ Minhas skills e subagentes do Claude Code, num lugar só.
 
 - **Método Spec → Plan → Build:** `/projeto` (orquestradora), `/spec`, `/visao`, `/usuarios`, `/telas`, `/dados`, `/plan`, `/build`
 - **Trilha de frontend:** `/frontend`, `/frontend-visual`, `/frontend-testes`, `/frontend-performance`
-- **Subagentes:** `plan-visao`, `plan-usuarios`, `plan-telas`, `plan-dados`, `build-onda`, `build-revisor`
+- **CRM:** `/crm-planner` — planeja funis, regras, permissões e automações no Agendor ou no Salesforce Sales Cloud (modo rápido ou completo com subagentes; bases de conhecimento em `plugins/metodo/skills/crm-planner/referencias/`)
+- **Subagentes:** `plan-visao`, `plan-usuarios`, `plan-telas`, `plan-dados`, `build-onda`, `build-revisor`, `crm-processo`, `crm-governanca`, `crm-automacao`, `crm-revisor`
 - **Modelos** dos documentos: `plugins/metodo/skills/projeto/modelos/` (a `/projeto` copia para `docs/modelos/` quando faltar)
 
 ## Instalar no computador (vale para todos os projetos)
