@@ -1,6 +1,6 @@
 ---
 name: crm-planner
-description: Planeja a implantação ou reestruturação de um CRM (Agendor ou Salesforce Sales Cloud) para uma operação comercial — funis, etapas, critérios de avanço, campos, motivos de perda, permissões, distribuição de leads, automações, metas e relatórios — e entrega um plano com o passo a passo de configuração no sistema escolhido. Use quando o usuário digitar "/crm-planner", pedir para "planejar o CRM", "montar o funil no Agendor/Salesforce", "configurar o CRM da equipe", comparar Agendor e Salesforce ou migrar de um para o outro. Não configura o sistema sozinho.
+description: Planeja (com subagentes de processo, governança, automação e revisão no modo completo) a implantação ou reestruturação de um CRM (Agendor ou Salesforce Sales Cloud) para uma operação comercial — funis, etapas, critérios de avanço, campos, motivos de perda, permissões, distribuição de leads, automações, metas e relatórios — e entrega um plano com o passo a passo de configuração no sistema escolhido. Use quando o usuário digitar "/crm-planner", pedir para "planejar o CRM", "montar o funil no Agendor/Salesforce", "configurar o CRM da equipe", comparar Agendor e Salesforce ou migrar de um para o outro. Não configura o sistema sozinho.
 ---
 
 # CRM Planner
@@ -16,11 +16,21 @@ Leia só as seções que o caso pede. **Nunca recomende um recurso sem conferir 
 ## Passo a passo
 
 1. **Projeto.** Use `docs/<projeto>/crm/`. Se não houver projeto, pergunte o nome e crie a pasta. Se já existir `plano-crm.md`, leia e pergunte se é revisão.
-2. **Diagnóstico.** Faça as perguntas abaixo **em blocos de 3 a 4**, com a ferramenta de perguntas e opções quando houver respostas típicas. Se o usuário não souber, sugira o padrão sensato e marque **(assumido)**.
-3. **Escolha do sistema.** Se o usuário ainda não definiu, recomende Agendor ou Salesforce com base em: tamanho do time, necessidade de previsão/metas formais, complexidade das regras, orçamento e quem vai administrar. Mostre o porquê em 3 linhas e o plano/edição mínimo necessário.
-4. **Desenho.** Monte o plano preenchendo `modelo/plano-crm.md` (copie para `docs/<projeto>/crm/plano-crm.md`). Respeite os limites do sistema escolhido (ex.: Agendor: 30 funis, 20 etapas, 15 passos por automação, só Nome/CNPJ-CPF/E-mail/Telefones obrigatórios no formulário; Salesforce: tudo é configurável, mas exige administrador).
-5. **Revisão de riscos.** Antes de entregar, confira o plano contra a lista "Armadilhas" abaixo e corrija.
-6. **Entrega.** Mostre um resumo curto (funis, etapas, 3 regras principais, plano/edição necessário) e peça aprovação. Ajuste o que o usuário pedir.
+2. **Diagnóstico.** Faça as perguntas abaixo **em blocos de 3 a 4**, com a ferramenta de perguntas e opções quando houver respostas típicas. Se o usuário não souber, sugira o padrão sensato e marque **(assumido)**. Salve as respostas em `docs/<projeto>/crm/diagnostico.md` (perguntas e respostas, agrupadas como abaixo, mais o sistema-alvo se já definido).
+3. **Escolha do modo.** Decida e diga ao usuário em uma linha (ele pode trocar):
+   - **Modo rápido** (sem subagentes): até ~10 usuários, um processo de venda, uma equipe, sistema já definido e sem dúvida estrutural.
+   - **Modo completo** (com subagentes): várias equipes, empreendimentos ou canais; pré-venda/pós-venda separados; regras de visibilidade complexas; dúvida entre Agendor e Salesforce; ou o usuário pediu.
+4. **Desenho.**
+   - *Modo rápido:* escolha o sistema (se faltar, recomende com base em tamanho do time, necessidade de previsão/metas formais, complexidade das regras, orçamento e quem administra) e monte o plano direto.
+   - *Modo completo:*
+     a. Dispare **em paralelo** os agentes `crm-processo`, `crm-governanca` e `crm-automacao`. Passe a cada um: caminho absoluto do `diagnostico.md`, o sistema-alvo (ou "a decidir — avalie Agendor e Salesforce") e o caminho absoluto da pasta `referencias/` desta skill. Se os agentes não estiverem disponíveis, use 3 subagentes de uso geral com o conteúdo do arquivo do agente correspondente (em `agents/` do plugin) como instrução.
+     b. **Consolide:** cruze as "Dependências para os outros agentes" e resolva conflitos (ex.: automação que depende de etapa que a outra opção elimina). Monte **uma recomendação** (combinação de opções) e **uma alternativa**, cada uma com prós, contras e plano/edição exigido. Se houver dúvida de sistema, inclua a comparação Agendor × Salesforce para este caso.
+     c. Apresente as duas ao usuário de forma curta (tabela) e peça a escolha com a ferramenta de perguntas.
+   - Em ambos os modos, preencha `modelo/plano-crm.md` (copie para `docs/<projeto>/crm/plano-crm.md`) respeitando os limites do sistema (ex.: Agendor: 30 funis, 20 etapas, 15 passos por automação, só Nome/CNPJ-CPF/E-mail/Telefones obrigatórios no formulário; Salesforce: tudo é configurável, mas exige administrador). No modo completo, registre na seção 1 a alternativa descartada e o motivo.
+5. **Revisão.**
+   - *Modo rápido:* confira você mesmo o plano contra a lista "Armadilhas" abaixo e corrija.
+   - *Modo completo:* dispare o agente `crm-revisor` (caminhos de `diagnostico.md`, `plano-crm.md`, `referencias/` e deste `SKILL.md`). Corrija os erros e conflitos apontados; se o veredito não for "Pronto para entregar", rode o revisor mais uma vez (no máximo 2 rodadas) e liste o que ficar pendente na seção 12.
+6. **Entrega.** Mostre um resumo curto (modo usado, sistema e plano/edição, funis e etapas, 3 regras principais, pendências) e peça aprovação. Ajuste o que o usuário pedir.
 7. **Próximo passo.** Ofereça: (a) gerar o checklist de configuração como tarefas; (b) se houver token/API do Agendor disponível, aplicar via API só o que a API permite (cadastros, negócios, tarefas, produtos) — configurações de funil, campos e regras são feitas pela tela; (c) seguir para `/spec` se for virar um sistema próprio.
 
 ## Perguntas de diagnóstico
