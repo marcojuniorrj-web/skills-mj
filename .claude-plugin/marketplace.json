@@ -7,8 +7,8 @@
     {
       "name": "metodo",
       "source": "./plugins/metodo",
-      "description": "Método Spec → Plan → Build (/projeto, /spec, /plan, /build) com subagentes, mais a trilha de frontend (visual, testes, performance).",
-      "version": "1.0.0"
+      "description": "Método Spec → Plan → Build (/projeto, /spec, /plan, /build) com subagentes, mais a trilha de frontend (visual, testes, performance) e o /crm-planner (Agendor e Salesforce).",
+      "version": "1.1.0"
     }
   ],
   "metadata": {

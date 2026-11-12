@@ -1,6 +1,6 @@
 {
   "name": "metodo",
-  "version": "1.0.0",
-  "description": "Método Spec → Plan → Build com subagentes e trilha de frontend.",
+  "version": "1.1.0",
+  "description": "Método Spec → Plan → Build com subagentes, trilha de frontend e planejamento de CRM.",
   "author": { "name": "Marco Junior" }
 }
